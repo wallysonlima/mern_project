@@ -7,12 +7,19 @@ import GoalList from './components/GoalList'
 //};
 
 class App extends React.Component {
-    render() {
-        return <div>
+    const courseGoals = [
+        {id: 'cg1', text: 'Finish the Course'},
+        {id: 'cg2', text: 'Learn all about the Course Main Topic'},
+        {id: 'cg3', text: 'Help other students in the Course Q&A'},
+    ]
+
+    return { 
+        <div>
             <h3>Course Goals</h3>
-            <GoalList />
+            <GoalList goals={courseGoals}/>
         </div>
     }
+    
 }
 
 export default App;
