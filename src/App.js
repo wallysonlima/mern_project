@@ -1,6 +1,7 @@
 import react from 'react';
 import { render } from 'react-dom';
-import GoalList from './components/GoalList'
+import GoalList from './components/GoalList/GoalList';
+import NewGoal from './components/NewGoal/NewGoal';
 //const App {} => {
     //return <h1>A React App!</h1>;
 //    return React.createElement('h1', {}, 'Hi, this is React!');
