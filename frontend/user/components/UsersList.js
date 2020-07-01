@@ -6,8 +6,8 @@ import './UsersList.css'
 const UsersList = props => {
   if (props.items.length === 0) {
       return (
-        <div classname="center">
-            <h2>No users found.</h2>
+        <divo classname="center">
+            <h2>No users fund.</h2>
         </div>
       );
   }
