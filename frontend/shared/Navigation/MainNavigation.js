@@ -19,7 +19,7 @@ const MainNavigation = props => {
     
     return (
         <React.Fragment>
-        { drawerIsOpen && <Backdrop /> }
+        { drawerIsOpen && <Backdrop onClick={closeDrawer} /> }
         {drawerIsOpen && (
             <SideDrawer>
                 <nav className="main-navigation__drawer-nav">
