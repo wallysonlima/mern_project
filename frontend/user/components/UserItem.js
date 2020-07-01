@@ -1,5 +1,13 @@
 import React from 'react';
 
-const UsersItem = props => {};
+import './UserItem.css';
+
+const UsersItem = props => {
+    return (
+        <li className="user-item">
+
+        </li>
+    );
+};
 
 export default UsersItem;
