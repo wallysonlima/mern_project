@@ -1,0 +1,16 @@
+.form-control textarea:focus {
+    outline: none;
+    background: #ebebeb;
+    border-color: #510077;
+}
+
+.form-control--invalid label,
+.form-control--invalid p {
+    color: red;
+}
+
+.form-control--invalid input,
+.form-control--invalid textarea {
+    border-color: red;
+    background: #ffd1d1;
+}
