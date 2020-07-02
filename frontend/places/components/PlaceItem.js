@@ -12,7 +12,18 @@ const PlaceItem = props => {
     
     return (
         <React.Fragment>
-        <Modal show={showMap} onCancel={closeMapHandler} header={props.address} contentClass="place-item__modal-content />
+        <Modal 
+            show={showMap}
+            onCancel={closeMapHandler}
+            header={props.address}
+            contentClass="place-item__modal-content" 
+            footerClass="place-item__modal-actions"
+            footer={<Button onClick={closeMapHandler}>Close</Button>}  
+        >
+            <div className="map_container">
+                <h2>The MAp !</h2>
+            </div>
+        </Modal>
         <li className="place-item">
         <Card className="place-item__content">
         <div className="place-item__image">
@@ -24,7 +35,7 @@ const PlaceItem = props => {
             <p>{props.description}</p>
         </div>
         <div className="place-item__actions">
-            <button>VIEW ON MAP</button>
+            <button inverse onClick={openMapHandler}>VIEW ON MAP</button>
             <button to={`places/${props.id}`}>EDIT</button>
             <button danger>DELETE</button>    
         </div>
