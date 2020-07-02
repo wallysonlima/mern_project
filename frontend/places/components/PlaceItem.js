@@ -16,8 +16,8 @@ const PlaceItem = props => {
         </div>
         <div className="place-item__actions">
             <button>VIEW ON MAP</button>
-            <button>EDIT</button>
-            <button>DELETE</button>    
+            <button to={`places/${props.id}`}>EDIT</button>
+            <button danger>DELETE</button>    
         </div>
         </Card> 
     </li>

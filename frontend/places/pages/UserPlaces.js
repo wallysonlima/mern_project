@@ -30,8 +30,9 @@ const DUMMY_PLACES =  [
 ]
 
 const UserPlaces = props => {
-    useParams();
-    return <PlaceList items={DUMMY_PLACES} />
+    const userId = iseParams().userId;
+    const loadedPlaces = DUMMY_PLACES.filter(place => place.creator === userId);
+    return <PlaceList items={loadedPlaces} />
 };
 
 export default UserPlaces;
