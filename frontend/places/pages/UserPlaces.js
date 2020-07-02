@@ -1,5 +1,6 @@
 import React from 'react';
 import PlaceList from '../components/PlaceList';
+import { useParams } from 'react-router-dom';
 
 const DUMMY_PLACES =  [
     {
@@ -8,19 +9,29 @@ const DUMMY_PLACES =  [
         description: 'One of the most famous building in the world',
         imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fquantocustaviajar.com%2Fblog%2Fempire-state-building-em-nova-york%2F&psig=AOvVaw0PmKil5fYvbSQix7dBac1y&ust=1593711777272000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC4o5bNrOoCFQAAAAAdAAAAABAD'
         address: ' 20 w 34 th St, New York, NY 10001',
-        location:  
+        location: {
+            lat: 40.7484405,
+            lng: -73.9878584
+        },
+        creator: 'u1'
+    },
+    {
+        id: 'p2',
+        title: 'Empire State Building',
+        description: 'One of the most famous building in the world',
+        imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fquantocustaviajar.com%2Fblog%2Fempire-state-building-em-nova-york%2F&psig=AOvVaw0PmKil5fYvbSQix7dBac1y&ust=1593711777272000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOC4o5bNrOoCFQAAAAAdAAAAABAD'
+        address: '20 w 34 th St, New York, NY 10001',
+        location: {
+            lat: 40.7484405,
+            lng: -73.9878584
+        },
+        creator: 'u2'
     }
 ]
 
 const UserPlaces = props => {
-    if (proprs.items.length === 0) {
-        return <div className="place-list center">
-            <Card>
-                <h2>No places found. Maybe create one?</h2>
-                <button>Share Place</button>
-            </Card>
-        </div>
-    }
+    useParams();
+    return <PlaceList items={DUMMY_PLACES} />
 };
 
 export default UserPlaces;
