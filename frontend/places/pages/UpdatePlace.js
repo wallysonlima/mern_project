@@ -1,7 +1,10 @@
 import React from 'react';
 import { useParams} from 'react-router-dom';
 import './UpdatePlace.css';
-
+import {
+    VALIDATOR_REQUIRE,
+    VALIDATOR_MINLENGTH
+} from '../../shared/util/validators';
 import Input from '../../shared/components/FormElements/Input';
 
 const DUMMY_PLACES =  [
@@ -42,10 +45,34 @@ const UpdatePlace = () => {
         </div>
     }
 
-    return <form>
+    return (
+        <form>
+            <Input
+                id="title"
+                element="input"
+                type="text"
+                label="Title"
+                validators={[VALIDATOR_REQUIRE()]}
+                errortext="Please enter a valid title."
+                onInput={() => {}}
+                value={identifiedPlace.title}
+                valid={true}
+            />
 
-
+            <Input
+                id="description"
+                element="textarea"
+                label="Description"
+                validators={[VALIDATOR_MINLENGTH(5)]}
+                errortext="Please enter a valid description (min. 5 characters)."
+                onInput={() => {}}
+                value={identifiedPlace.title}
+                valid={true}
+            />
+            <Button type="submit" disabled={true}>
+                UPDATE PLACE
+            </Button>
         </form>
-};
+    )};
 
 export default UpdatePlace;
