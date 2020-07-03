@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 
 import Users from './user/pages/Users.js';
 import NewPlace from './places/pages/NewPlace';
 import UserPlaces from './places/pages/UserPlaces';
+import UpdatePlace from './places/pages/UpdatePlace';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 
 const App = () => {
@@ -19,7 +21,9 @@ const App = () => {
             <Route path="/places/new" exact>
                 <NewPlace />
             </Route>
-            <Redirect to="/">
+            <Route path="/places/:placeId"></Route>
+            <UpdatePlace />
+            <Redirect to="/" />
             </Switch>
         </main>
     </Router>
