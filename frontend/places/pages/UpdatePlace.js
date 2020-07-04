@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams} from 'react-router-dom';
 import './UpdatePlace.css';
+import './PlaceForm.css';
 import {
     VALIDATOR_REQUIRE,
     VALIDATOR_MINLENGTH
@@ -46,7 +47,7 @@ const UpdatePlace = () => {
     }
 
     return (
-        <form>
+        <form className="place-form">
             <Input
                 id="title"
                 element="input"
