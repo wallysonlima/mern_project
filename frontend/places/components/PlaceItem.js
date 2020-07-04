@@ -7,15 +7,28 @@ import Map from '../../shared/components/UIElements/Map';
 
 const PlaceItem = props => {
     const [showMap, setShowMap] = useState(false);
-
+    const [showConfirmModal. setShowConfirmModal] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
     
+    const showDeleteWarningHandler = () => {
+        setShowConfirmModal(true);
+    };
+
+    const cancelDeleteHandler = () => {
+        setShowConfirmModal(false)
+    };
+
+    const confirmDeleteHandler = () => {
+        setShowConfirmModal(false);
+        console.log("DELETING...");
+    }
+
     return (
         <React.Fragment>
         <Modal 
-            show={showMap}
-            onCancel={closeMapHandler}
+            show={showConfirmModal}
+            onCancel={cancelDeleteHandler}
             header={props.address}
             contentClass="place-item__modal-content" 
             footerClass="place-item__modal-actions"
@@ -24,6 +37,14 @@ const PlaceItem = props => {
             <div className="map_container">
                 <Map center={props.coordinates} zoom={16}/>
             </div>
+        </Modal>
+        <Modal header= "Are you sure?" footerClass="place-item__modal_actions" footer={
+            <ReactFragment>
+                <button inverse onClick={cancelDeleteHandler}>Cancel</button>
+                <button danger> onClick={confirmDeleteHandler}Delete</button>
+            </ReactFragment>
+        }>
+           <p>Do you want to proceed and delete this place? Please note thate it can't be undone thereafter.</p> 
         </Modal>
         <li className="place-item">
         <Card className="place-item__content">
@@ -38,7 +59,7 @@ const PlaceItem = props => {
         <div className="place-item__actions">
             <button inverse onClick={openMapHandler}>VIEW ON MAP</button>
             <button to={`places/${props.id}`}>EDIT</button>
-            <button danger>DELETE</button>    
+            <button danger onClick={showDeleteWarningHandler}>DELETE</button>    
         </div>
         </Card>
         </li> 
