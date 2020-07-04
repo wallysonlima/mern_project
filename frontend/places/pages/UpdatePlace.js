@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams} from 'react-router-dom';
 import './UpdatePlace.css';
 import './PlaceForm.css';
@@ -37,23 +37,23 @@ const DUMMY_PLACES =  [
 ]
 
 const UpdatePlace = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const placeId = useParams().placeId;
 
-    const identifiedPlace = DUMMY_PLACES.find(p => id === placeId);
-
-    const [formState, inputHandler] = useForm(
+    const [formState, inputHandler, setFormData] = useForm(
         {
         title: {
-            value: identifiedPlace.title,
-            isValid: true
+            value: '',
+            isValid: false
         },
         description: {
-            value: identifiedPlace.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
     },
     true
     );
+
 
     if ( !identifiedPlace) {
         return <div className="center">
@@ -61,12 +61,47 @@ const UpdatePlace = () => {
         </div>
     }
 
+    if (!formState.inputs.title.value) {
+        return <div className="center">
+            <h2>Loading...</h2>
+        </div>
+    }
+
+    const identifiedPlace = DUMMY_PLACES.find(p => id === placeId);
+
+    useEffect(() => {
+        setFormData({
+            title: {
+                value: identifiedPlace.title,
+                isValid: true
+            },
+            description: {
+                value: identifiedPlace.description,
+                isValid: true
+            }
+        }, true
+        );
+
+        setIsLoading(false);
+
+    }, [setFormdata, identifiedPlace]);
+
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
     }
 
+    if (isLoading) {
+        return(
+            <div className="center">
+                <h2>Loading...</h2>
+            </div>
+        );
+    }
+
+
     return (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+        {formState.inputs.title.value && (
+            <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
             <Input
                 id="title"
                 element="input"
