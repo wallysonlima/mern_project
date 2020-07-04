@@ -39,7 +39,10 @@ const DUMMY_PLACES =  [
 const UpdatePlace = () => {
     const placeId = useParams().placeId;
 
-    const [formState. inputHandlre] = useForm({
+    const identifiedPlace = DUMMY_PLACES.find(p => id === placeId);
+
+    const [formState, inputHandler] = useForm(
+        {
         title: {
             value: identifiedPlace.title,
             isValid: true
@@ -48,8 +51,9 @@ const UpdatePlace = () => {
             value: identifiedPlace.description,
             isValid: true
         }
-
-    const identifiedPlace = DUMMY_PLACES.find(p => id === placeId);
+    },
+    true
+    );
 
     if ( !identifiedPlace) {
         return <div className="center">
