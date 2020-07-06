@@ -23,10 +23,10 @@ const Auth = () => {
     }
     
     return (
-        <Card> className="authenticate"
+        <Card className="authenticate">
             <h2>Login Required</h2>
             <hr />
-            <form> onSubmit={authSubmitHandler}
+            <form onSubmit={authSubmitHandler}>
                 <Input 
                     element="input"
                     id="email"
@@ -35,7 +35,7 @@ const Auth = () => {
                     validators={[VALIDATOR_EMAIL()]}
                     errorText="Please enter a valid email address."
                     onInput={inputHandler}
-                >
+                />
                 <Input 
                     element="input"
                     id="password"
@@ -44,8 +44,7 @@ const Auth = () => {
                     validators={[VALIDATOR_MINLENGTH()]}
                     errorText="Please enter a valid password, at least 5 characteres."
                     onInput={inputHandler}
-                >
-                </Input>
+                />
                 <button type="submit" disabled={!formState.isValid}>LOGIN</button>
             </form>
         </Card>
