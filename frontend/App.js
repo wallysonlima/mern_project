@@ -63,9 +63,7 @@ const App = () => {
     <Router>
         <MainNavigation />
         <main>
-            <Switch>
-                {routes}
-            </Switch>
+            {routes}
         </main>
     </Router>
     </AuthContext.Provider>
