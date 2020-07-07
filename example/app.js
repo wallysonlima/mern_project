@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     if (req.body) {
-        return res.send('<h1>' + req.body.name + '</h1>'); 
+        return res.send('<h1>USer:' + req.body.name + '</h1>'); 
     }
     
     res.send('<form method="POST"><input type="text" name="username"><button type="submit">Create User</button></form>');
