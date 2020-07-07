@@ -1,0 +1,24 @@
+{
+  "name": "MERN",
+  "version": "1.0.0",
+  "main": "http_demo_server.js",
+  "dependencies": {
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wallysonlima/mern_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wallysonlima/mern_project/issues"
+  },
+  "homepage": "https://github.com/wallysonlima/mern_project#readme",
+  "description": ""
+}
