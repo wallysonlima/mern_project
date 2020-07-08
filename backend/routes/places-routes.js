@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) >= {
-    console.log('Get Request in Places');
-    res.send({message: 'It works!'});
+router.get('/', function(req, res) {
+    res.json({message: 'It works'});
+    console.log('GET Request in Places');
 });
