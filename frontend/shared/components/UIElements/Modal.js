@@ -13,7 +13,7 @@ const ModalOverlay = props => {
         </header>
         <form 
             onSubmit={
-                props.onSubmit ? props.onSubmit : event => event.preventDefault 
+                props.onSubmit ? props.onSubmit : event => event.preventDefault()
             }
         >
           <div className={`modal__content ${props.contentClass}`}>
@@ -39,6 +39,7 @@ const Modal = props => {
             unmountOnExit 
             timeout={200} 
             classNames="modal">    
+          <ModalOverlay {...props} />
         </CSSTransition>
     </React.Fragment>
     );
