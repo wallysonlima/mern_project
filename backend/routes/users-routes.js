@@ -1,10 +1,10 @@
 const express = require('express');
 
-const placesControllers = require("../controllers/users-controller");
+const usersController = require("../controllers/users-controller");
 
 const router = express.Router();
 
-router.get('/',usersController.getUsers);
+router.get('/', usersController.getUsers);
 
 router.post('/signup', usersController.signup);
 
