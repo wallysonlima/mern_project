@@ -1,3 +1,5 @@
+const HttpError = require("../models/http-error");
+
 const DUMMY_PLACES = [
     {
         id: 'p1',
@@ -12,8 +14,6 @@ const DUMMY_PLACES = [
     }
 ];
 
-const HttpError = require("../models/http-error");
-
 const getPlaceById = function(req, res, next){
     const placeId = req.params.pid; // { pid: 'p1'}
 
@@ -22,11 +22,11 @@ const getPlaceById = function(req, res, next){
     });
 
     if (!place) {
-        throw new HttpError('Could not find a place for the provided id.', 404);
-        
-    res.json({ place }); // => { place } => { place:place}
+        throw new HttpError('Could not find a place for the provided id.', 404); 
     }
-}
+    
+    res.json({place}); // => { place } => { place:place}
+};
 
 // function getPlaceById() {...}
 // const getPlaceById = function() {...}
@@ -45,3 +45,6 @@ const getPlaceByUserId = function(req, res, next) {
 
     res.json({place});
 }
+
+exports.getPlaceById = getPlaceById;
+exports.getPlaceByUserId = getPlaceByUserId;
