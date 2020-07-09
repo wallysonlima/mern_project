@@ -51,7 +51,7 @@ const createPlace = function(req, res, next) {
     const { title, description, coordinates, address, creator } = req.body;
     // const titlte = req.body.title
     const createdPlace = {
-        id: 
+        id: uuid(),
         title,
         description,
         location: coordinates,
