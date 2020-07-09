@@ -13,6 +13,17 @@ let DUMMY_PLACES = [
         },
         address: '20 w 34 th St, New Yorkm NY 10001',
         creator: 'u1'
+    },
+    {
+        id: 'p2',
+        title: 'Brasil',
+        description: "One of the most famous sky scrapers in the world",
+        location: {
+            lat: 40.7484474,
+            lng: -73.9871516
+        },
+        address: '20 w 34 th St, New Yorkm NY 10001',
+        creator: 'u2'
     }
 ];
 
@@ -32,20 +43,20 @@ const getPlaceById = function(req, res, next){
 
 // function getPlaceById() {...}
 // const getPlaceById = function() {...}
-const getPlaceByUserId = function(req, res, next) {
+const getPlacesByUserId = function(req, res, next) {
     const userId = req.params.uid;
 
-    const place = DUMMY_PLACES.find(p => {
+    const places = DUMMY_PLACES.filter(p => {
         return p.creator === userId;
     });
 
-    if (!place) {
+    if (!places || places.length === 0) {
       return next (
-          new HttpError('Could not find a place for the provided user id.')
+          new HttpError('Could not find places for the provided user id.')
       );
     }
 
-    res.json({place});
+    res.json({places});
 }
 
 const createPlace = function(req, res, next) {
@@ -84,7 +95,7 @@ const deletePlace = function(req, res, next) {
 };
 
 exports.getPlaceById = getPlaceById;
-exports.getPlaceByUserId = getPlaceByUserId;
+exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;
