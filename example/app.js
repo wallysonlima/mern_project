@@ -5,15 +5,12 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const mongoPractice = require('./mongo');
+
 app.use(bodyParser.urlencoded({extend: false})); 
 
-app.post('/user', (req, res, next) => {
-    res.send('<h1>User: ' + req.body.username + '</h1>');
-});
+app.post('/products', mongoPractice.createProduct);
 
-app.get('/', (req, res, next) => {
-    res.send(
-        '<form action="/user" method="POST"><input type="text" name="username"><button type="submit">Create User</button></form>');
-});
+app.get('/products', mongoPractice.getProducts);
 
 app.listen(5000);
