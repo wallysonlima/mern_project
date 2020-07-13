@@ -18,6 +18,14 @@ const createProduct = async function (req, res, next) => {
     });
 
     const result = await createdProduct.save();
+
+    res.json(result);
 };
 
+const getProducts = async function (req, res, next) {
+    const products = await Product.find().exec();
+    res.json(products);
+}
+
 exports.createProduct = createProduct;
+exports.getProducts = getProducts;
