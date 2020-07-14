@@ -20,7 +20,7 @@ const getUsers = async function(req, res, next) {
     res.json({users: users.map(user => user.toObject({ getters: true }))});
 };
 
-const signup = function(req, res, next) {
+const signup = async function(req, res, next) {
     const errors = validationResult(req);
     
     if (!errors.isEmpty()) {
