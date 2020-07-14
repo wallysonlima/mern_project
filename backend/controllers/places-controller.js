@@ -44,6 +44,7 @@ const getPlacesByUserId = async function(req, res, next) {
         return next(error);
     }
 
+    // if (!places || places.length === 0) {
     if (!userWithPlaces || userWithPlaces.places.length === 0) {
       return next (
           new HttpError('Could not find places for the provided user id.')
