@@ -21,7 +21,9 @@ const signup = function(req, res, next) {
     const errors = validationResult(req);
     
     if (!errors.isEmpty()) {
-        throw new HttpError('Invalid inputs passed, please check your data.', 422);
+        return next(
+             new HttpError('Invalid inputs passed, please check your data.', 422);
+        );
     }
     
     const{ name, email, password } = req.body;
@@ -32,7 +34,7 @@ const signup = function(req, res, next) {
         existingUser = User.findOne({ email: email });
     } catch ( err ) {
         const error = new HttpError(
-            'Signing up failed, please trye again later.',
+            'Signing up failed, please try again later.',
             500
         );
 
@@ -71,13 +73,27 @@ const signup = function(req, res, next) {
 
 
 
- const login = function(req, res, next) {
+ const login = async function(req, res, next) {
     const{ email, password } = req.body;
 
-    const identifiedUser = DUMMY_USERS.find(u => u.email === email);
+    let existingUser;
 
-    if (!identifiedUser || identifiedUser.password !== password) {
-        throw new HttpError('Could not identify user, credentials seem to be wrong.', 404); 
+    try {
+        existingUser = User.findOne({ email: email });
+    } catch ( err ) {
+        const error = new HttpError(
+            'Logging in failed, please try again later.',
+            500
+        );
+
+        return next(error);
+    } 
+
+    if ( !existingUser || existingUser.password !== password ) {
+        const error = new HttpError(
+            'Invalid credentials, could no log in.',
+            401
+        );
     }
 
     res.json({message: 'Logged in!'});
