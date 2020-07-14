@@ -7,31 +7,6 @@ const User = require('../models/user');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 const mongoose = require ('mongoose');
 
-let DUMMY_PLACES = [
-    {
-        id: 'p1',
-        title: 'Empire State Building',
-        description: "One of the most famous sky scrapers in the world",
-        location: {
-            lat: 40.7484474,
-            lng: -73.9871516
-        },
-        address: '20 w 34 th St, New Yorkm NY 10001',
-        creator: 'u1'
-    },
-    {
-        id: 'p2',
-        title: 'Brasil',
-        description: "One of the most famous sky scrapers in the world",
-        location: {
-            lat: 40.7484474,
-            lng: -73.9871516
-        },
-        address: '20 w 34 th St, New Yorkm NY 10001',
-        creator: 'u2'
-    }
-];
-
 const getPlaceById = async function(req, res, next){
     const placeId = req.params.pid; // { pid: 'p1'}
 
@@ -58,9 +33,10 @@ const getPlaceById = async function(req, res, next){
 const getPlacesByUserId = async function(req, res, next) {
     const userId = req.params.uid;
 
-    let places;
+    //let places;
+    let userWithPlaces;
     try {
-        places = await Place.find({ creator: userId });
+        userWithPlaces = await (await User.findById(userId)).populated('places');
     } catch(err) {
         const erro = new HttpError(
             'Fetching places failed, please trye again later', 500);
@@ -68,13 +44,13 @@ const getPlacesByUserId = async function(req, res, next) {
         return next(error);
     }
 
-    if (!places || places.length === 0) {
+    if (!userWithPlaces || userWithPlaces.places.length === 0) {
       return next (
           new HttpError('Could not find places for the provided user id.')
       );
     }
 
-    res.json({places: places.map(place => place.toObject({ getters:true }))});
+    res.json({places: userWithPlaces.places.map(place => place.toObject({ getters:true }))});
 }
 
 const createPlace = async function(req, res, next) {
