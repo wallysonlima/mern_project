@@ -13,8 +13,20 @@ const DUMMY_USERS = [
     }
 ];
 
-const getUsers = function(req, res, next) {
-    res.json({ users: DUMMY_USERS });
+const getUsers = async function(req, res, next) {
+    let users;
+    
+    try {
+        users = await User.find({}, '-password');
+    } catch( err ) {
+        const error = new HttpError(
+            'Fetching users failed, please try again later.',
+            500
+        );
+        return next(error);
+    }
+
+    res.json({users: users.map(user => user.toObject({ getters: true }))});
 };
 
 const signup = function(req, res, next) {
@@ -22,7 +34,7 @@ const signup = function(req, res, next) {
     
     if (!errors.isEmpty()) {
         return next(
-             new HttpError('Invalid inputs passed, please check your data.', 422);
+             new HttpError('Invalid inputs passed, please check your data.', 422)
         );
     }
     
@@ -54,7 +66,7 @@ const signup = function(req, res, next) {
         email,
         image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.personare.com.br%2Fo-que-significa-sonhar-com-leao-m48714&psig=AOvVaw345FEMWGfHC9DUVs4mvq52&ust=1594811606431000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjX06zOzOoCFQAAAAAdAAAAABAD',
         password,
-        places
+        places: []
     });
 
     try {
