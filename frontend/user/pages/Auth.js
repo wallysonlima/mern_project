@@ -59,7 +59,7 @@ const Auth = () => {
         if ( isLoginMode ) {    
         try {
             await sendRequest(
-                'http://localohost:5000/api/users/login',
+                'http://localhost:5000/api/users/login',
                 'POST',
                 //JSON to string
                 JSON.stringify({
@@ -73,12 +73,12 @@ const Auth = () => {
             
             auth.login();
         } catch (err) {
-
+            
         }
     } else {
         try {
-            const response = await fetch(
-                'http://localohost:5000/api/users/signup',
+            await sendRequest(
+                'http://localhost:5000/api/users/signup',
                 'POST',
                 JSON.stringify({
                     name: formState.inputs.name.value,
@@ -89,18 +89,16 @@ const Auth = () => {
                     'Content-Type': 'application/json'
                 }
             );
+
+            auth.login();
         } catch( err ) {
 
         }
     }
-    
-    const errorHandler = () => {
-        setError(null);
-    };
 
     return (
         <React.Fragment>
-            <ErrorModal error={error} onClear={errorHandler}/>
+            <ErrorModal error={error} onClear={clearError}/>
         <Card className="authenticate">
             {isLoading && <LoadingSpinner asOverlay/>}
             <h2>Login Required</h2>
