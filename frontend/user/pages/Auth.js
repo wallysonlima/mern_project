@@ -12,13 +12,13 @@ import {
 } 
     from '../..shared/util/validators';
 import {useForm} from '../../shared/hooks/form-hook';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 import {AuthContext} from '../../shared/context/auth-context';
 
 const Auth = () => {
     const auth = useContext(AuthContext);
-    const [isLogin, setIsLoginMode] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState();
+    const [isLoginMode, setIsLoginMode] = useState(true);
+    const { isLoading, error, sendRequest, clearError} = useHttpClient();
     
     const [formState, inputHandler, setFormData] = useForm({
         email: {
@@ -55,38 +55,44 @@ const Auth = () => {
     const authSubmitHandler = async event => {
         event.preventDefault();
         
-        setIsLoading(true);
-        
         // Aqui conecta com o backend na função fetch, para criar o usuário
-        if ( isLoginMode ) {
-            try{
-                setIsLoading(true);
-                const response = await fetch('http://localohost:5000/api/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+        if ( isLoginMode ) {    
+        try {
+            await sendRequest(
+                'http://localohost:5000/api/users/login',
+                'POST',
+                //JSON to string
+                JSON.stringify({
                     email: formState.inputs.email.value,
                     password: formState.inputs.password.value
-                })
-            });
-
-            const responseData = await response.json();
+                }),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );   
             
-            if (!response.ok) {
-                throw new Error(responseData.message);
-            }
-
-            setIsLoading(false);
             auth.login();
-            } catch(err) {
-                setIsLoading(false);
-                setError(err.message || 'Something went wrong, please try again');
-            }   
+        } catch (err) {
+
         }
-            
-    };
+    } else {
+        try {
+            const response = await fetch(
+                'http://localohost:5000/api/users/signup',
+                'POST',
+                JSON.stringify({
+                    name: formState.inputs.name.value,
+                    email: formState.inputs.email.value,
+                    password: formState.inputs.password.value
+                }),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+        } catch( err ) {
+
+        }
+    }
     
     const errorHandler = () => {
         setError(null);

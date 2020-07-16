@@ -26,12 +26,14 @@ export const useHttpClient = () => {
                 throw new Error(responseData.message);
             }
 
+            setIsLoading(false);
             return responseData;
         } catch(err) {
             setError(err.message);
+            setIsLoading(false);
+            throw err;
         }
         
-        setIsLoading(false);
     }, []);
 
     const clearError = () => {
