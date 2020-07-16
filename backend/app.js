@@ -26,7 +26,7 @@ app.use(function(error, req, res, next) {
 });
 
 mongoose
-    .connect('mongodb+srv://wally:1234@cluster0.jziz6.mongodb.net/places?retryWrites=true&w=majority')
+    .connect('mongodb+srv://wally:1234@cluster0.jziz6.mongodb.net/mern?retryWrites=true&w=majority')
     .then(() => {
         app.listen(5000);
     });

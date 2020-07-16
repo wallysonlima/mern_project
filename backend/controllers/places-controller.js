@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 const Place = require('../models/place');
 const User = require('../models/user');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
-const mongoose = require ('mongoose');
+const mongoose = require('mongoose');
 
 const getPlaceById = async function(req, res, next){
     const placeId = req.params.pid; // { pid: 'p1'}
@@ -24,7 +24,6 @@ const getPlaceById = async function(req, res, next){
         return next(error);
     }
     
-
     res.json({ place: place.toObject( {getters: true } )}); // => { place } => { place:place}
 };
 
