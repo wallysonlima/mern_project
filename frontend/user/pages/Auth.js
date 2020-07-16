@@ -50,11 +50,12 @@ const Auth = () => {
     const authSubmitHandler = async event => {
         event.preventDefault();
         
+        // Aqui conecta com o backend na função fetch, para criar o usuário
         if ( isLoginMode ) {
         }
         else { 
             try{
-                const response = await fecth('http://localohost:5000/api/users/signup', {
+                const response = await fetch('http://localohost:5000/api/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
