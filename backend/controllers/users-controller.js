@@ -1,6 +1,5 @@
 const uuid = require('uuid/v4');
 const { validationResult } = require('express-validator');
-
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 
@@ -99,7 +98,10 @@ const signup = async function(req, res, next) {
         );
     }
 
-    res.json({message: 'Logged in!'});
+    res.json({
+        message: 'Logged in!', 
+        user: existingUser.toObject({getters: true})
+    });
  };
 
  exports.getUsers = getUsers;
