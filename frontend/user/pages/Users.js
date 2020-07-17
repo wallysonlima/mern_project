@@ -3,40 +3,26 @@ import React, { useEffect, useState } from 'react';
 import UsersList from '../components/UserList';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 
 // Conecta os usuarios no backend
 const Users = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [data, setError] = useState(false);
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState(false);
 
     useEffect(() => {
-        const sendRequest = async () => {
-            setIsLoading(true);
+        const fetchUsers = async () => {
             
             try {
-                const response = await fetch('http://localhost:5000/api/users');
-            
-                const responseData = await response.json();
-            
-                if (!response.ok) {
-                    throw new Error(responseData.message);
-                }
-
+                const responseData = await sendRequest('http://localhost:5000/api/users');
                 setLoadedUsers(responseData.users);
-                
-            } catch (err) {
-                setError(err.message);
-            }
-          
-            setIsLoading(false);
-        };
-        sendRequest();
-    }, []);
 
-    const errorHandler = () => {
-        setError(null);
-    }
+            } catch (err) {
+               
+            }
+        };
+        fetchUsers();
+    }, [sendRequest]);
 
     return 
     <React.Fragment>
